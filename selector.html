@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ads</title>
+<script src="js/jquery-1.9.1.min.js"></script>
+<style type="text/css">
+.city{margin:0;padding:0;margin-top:20px}
+.color label{width:30px;height:30px;display:inline-block;cursor:pointer;border-radius:5px;}
+</style>
+</head>
+<body>
+<span id="city">
+	<label><input type="checkbox" class="check" />衡阳</label>
+	<label><input type="checkbox" class="check" />长沙</label>
+	<label><input type="checkbox" class="check" />株洲</label>
+	<label><input type="checkbox" class="check" />湘潭</label>
+	<label><input type="checkbox" class="check" />郴州</label>
+	<label><input type="checkbox" class="check" />常德</label>
+	<label><input type="checkbox" class="check" />岳阳</label>
+	<label><input type="checkbox" class="check" />永州</label>
+	<label><input type="checkbox" class="check" />邵阳</label>
+	<label><input type="checkbox" class="check" />娄底</label>
+	<label><input type="checkbox" class="check" />怀化</label>
+	<label><input type="checkbox" class="check" />张家界</label>
+    <label><input type="checkbox" class="check_all" ckecked="false" />全选</label>
+	<label><input type="checkbox" class="check_notall" />反选</label>
+</span>
+
+
+<script type="text/javascript">
+$(function(){
+	/*全选与单选相互关联*/
+	$("#city label input.check").click(function(){
+     	var len_all = $("#city label input.check").length;
+ 		var len_ckd = $("#city label input:checkbox.check:checked").length;
+ 		len_all == len_ckd?$("#city label input:checkbox.check_all").prop('checked',true):$("#city label input:checkbox.check_all").prop('checked',false);
+    });
+
+	/*全选*/
+	$("#city label input.check_all").click(function(){
+    	var ckd = $(this).prop("checked");
+		$("#city label input.check").each(function(index, element) {
+            $(element).prop('checked',ckd);
+        });
+    });
+
+	/*反选*/
+	$("#city label input.check_notall").click(function(){
+    	var arr_ckd = [];
+		$("#city label").each(function(i,ele){
+			$(ele).find("input:checkbox.check").prop('checked')?arr_ckd.push($(ele).index()):"";
+    	});
+		
+		$("#city label").each(function(i,ele){
+			$(ele).find("input:checkbox.check").prop("checked",true);
+    	});
+		
+    	for(var j=0;j<arr_ckd.length;j++){
+    		$("#city label").eq(arr_ckd[j]).find("input:checkbox.check").prop("checked",false);
+        }
+    });
+})
+</script>
+</body>
+</html>
